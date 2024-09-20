@@ -27,6 +27,26 @@ namespace CapaDatos
             return dtDatos;
         }
 
+        public async Task<DataTable> ObtenerPorId(int id)
+        {
+            DataTable dtDatos = new DataTable();
+            try
+            {
+                this.adicionarParametro("Opcion", 150);
+                this.adicionarParametro("Id", id);
+                DataSet ds = await ejecutarProcedimiento("SP_CRUDProfesor");
+                if (ds == null || ds.Tables.Count == 0)
+                    throw new Exception("Error al ejecutar obtener profesor por ID");
+                dtDatos = ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                msjError = ex.Message;
+            }
+            return dtDatos;
+        }
+
+
         public async Task<DataTable> Insertar(string nombre)
         {
             DataTable dtDatos = new DataTable();

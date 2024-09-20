@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white"><strong>Editar Profesor</strong></h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                  <form [formGroup]="profesoresForm" (ngSubmit)="onSubmit()" *ngIf="profesoresForm">
+                    <div class="form-group">
+                      <label for="nombre">Nombre</label>
+                      <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Ingrese el nombre del profesor">
+                      <div *ngIf="profesoresForm.get('nombre')?.invalid && (profesoresForm.get('nombre')?.dirty || profesoresForm.get('nombre')?.touched)" class="alert alert-danger mt-2">
+                        <div *ngIf="profesoresForm.get('nombre')?.errors?.['required']">El nombre es requerido.</div>
+                        <div *ngIf="profesoresForm.get('nombre')?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3" [disabled]="profesoresForm.invalid">Actualizar Profesor</button>
+                    <button style="margin-left: 3px;" type="button" class="btn btn-secondary mt-3" routerLink="/lista-profesores">Volver</button>
+                  </form>
+                  <div *ngIf="!profesoresForm" class="alert alert-info mt-3">
+                    Cargando datos del profesor...
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

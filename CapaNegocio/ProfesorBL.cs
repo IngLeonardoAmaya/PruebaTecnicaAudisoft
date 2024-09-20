@@ -41,6 +41,34 @@ namespace CapaNegocio
             return lista;
         }
 
+        public async Task<Profesor> ObtenerPorId(int id)
+        {
+            try
+            {
+                DataTable dt = await _profesorDAL.ObtenerPorId(id);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataRow row = dt.Rows[0];
+                    return new Profesor
+                    {
+                        Id = Convert.ToInt32(row["Id"]),
+                        Nombre = Convert.ToString(row["Nombre"])
+                    };
+                }
+                else
+                {
+                    msjError = _profesorDAL.msjError ?? "Profesor no encontrado";
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                msjError = ex.Message;
+                return null;
+            }
+        }
+
+
         public async Task<bool> Insertar(Profesor profesor)
         {
             try

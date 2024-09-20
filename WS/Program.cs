@@ -27,10 +27,15 @@ builder.Services.AddScoped<NotaDAL>();
 /*****************************************************
 * HABILITAR CORS
 *****************************************************/
-builder.Services.AddCors(p => p.AddPolicy("Todos", build =>
+builder.Services.AddCors(options =>
 {
-    build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
-}));
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 /*****************************************************
  * FIN HABILITAR CORS
  *****************************************************/
@@ -53,7 +58,7 @@ app.MapControllers();
 /*****************************************************
 * HABILITAR CORS
 *****************************************************/
-app.UseCors("Todos");
+app.UseCors("AllowAll");
 /*****************************************************
  * FIN HABILITAR CORS
  *****************************************************/

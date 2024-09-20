@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="offset-9 col-3 mb-3">
+        <a class="btn btn-secondary d-block mx-auto btn-lg bg-dark" routerLink="/crear-notas">
+            <i class="fa-solid fa-plus"></i> Agregar Nota
+        </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white"><strong>Lista de Notas</strong></h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                        <table class="table table-bordered" id="tabla" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre Nota</th>
+                                    <th>Valor  Nota</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let nota of notas">
+                                  <td>{{ nota.id }}</td>
+                                  <td>{{ nota.nombre }}</td>
+                                  <td>{{ nota.valor}}</td>
+                                  <td class="btn-toolbar">
+                                    <button class="btn btn-primary mr-2" (click)="editarNota(nota.id)">Editar</button>
+                                    <button style="margin-left: 3px;" class="btn btn-danger mr-2" (click)="eliminarNota(nota.id)">Eliminar</button>
+                                </td>
+                              </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+

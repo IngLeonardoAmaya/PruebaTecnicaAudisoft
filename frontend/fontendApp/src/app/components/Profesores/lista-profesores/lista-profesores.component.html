@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="offset-9 col-3 mb-3">
+        <a class="btn btn-secondary d-block mx-auto btn-lg bg-dark" routerLink="/crear-profesores">
+            <i class="fa-solid fa-plus"></i> Nuevo Profesor
+        </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white"><strong>Lista de Profesores</strong></h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                        <table class="table table-bordered" id="tabla" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let profesor of profesores">
+                                  <td>{{ profesor.id }}</td>
+                                  <td>{{ profesor.nombre }}</td>
+                                  <td class="btn-toolbar">
+                                    <button class="btn btn-primary mr-2" (click)="editarProfesor(profesor.id)">Editar</button>
+                                    <button style="margin-left: 3px;" class="btn btn-danger mr-2" (click)="eliminarProfesor(profesor.id)">Eliminar</button>
+                                </td>
+                              </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+

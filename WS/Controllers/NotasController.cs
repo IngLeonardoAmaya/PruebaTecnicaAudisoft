@@ -11,7 +11,7 @@ namespace WS.Controllers
     public class NotasController : ControllerBase
     {
         private readonly NotaBL _notaBL;
-
+            
         public NotasController(NotaBL notaBL)
         {
             _notaBL = notaBL;
@@ -26,6 +26,21 @@ namespace WS.Controllers
                 return BadRequest(_notaBL.msjError);
             }
             return Ok(notas);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Notas>> Get(int id)
+        {
+            var nota = await _notaBL.ObtenerPorId(id);
+            if (!string.IsNullOrEmpty(_notaBL.msjError))
+            {
+                return BadRequest(_notaBL.msjError);
+            }
+            if (nota == null)
+            {
+                return NotFound();
+            }
+            return Ok(nota);
         }
 
         [HttpPost]

@@ -44,6 +44,38 @@ namespace CapaNegocio
             return lista;
         }
 
+        public async Task<Notas> ObtenerPorId(int id)
+        {
+            try
+            {
+                DataTable dt = await _notaDAL.ObtenerPorId(id);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataRow row = dt.Rows[0];
+                    return new Notas
+                    {
+                        Id = Convert.ToInt32(row["Id"]),
+                        Nombre = Convert.ToString(row["Nombre"]),
+                        IdProfesor = Convert.ToInt32(row["IdProfesor"]),
+                        NombreProfesor = Convert.ToString(row["NombreProfesor"]),
+                        IdEstudiante = Convert.ToInt32(row["IdEstudiante"]),
+                        NombreEstudiante = Convert.ToString(row["NombreEstudiante"]),
+                        Valor = Convert.ToDecimal(row["Valor"])
+                    };
+                }
+                else
+                {
+                    msjError = _notaDAL.msjError ?? "Nota no encontrada";
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                msjError = ex.Message;
+                return null;
+            }
+        }
+
         public async Task<bool> Insertar(Notas nota)
         {
             try

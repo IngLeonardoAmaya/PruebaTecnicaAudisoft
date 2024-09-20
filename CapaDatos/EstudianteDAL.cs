@@ -28,6 +28,23 @@ namespace CapaDatos
             return dtDatos;
         }
 
+        public async Task<DataTable> ObtenerPorId(int id)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                adicionarParametro("Opcion", 150); // Nuevo valor para obtener por ID
+                adicionarParametro("Id", id);
+                DataSet ds = await ejecutarProcedimiento("sp_CrudEstudiante");
+                dt = ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                msjError = ex.Message;
+            }
+            return dt;
+        }
+
         public async Task<DataTable> Insertar(string nombre)
         {
             DataTable dtDatos = new DataTable();

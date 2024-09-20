@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="container"></div>
+  <div class="row mt-5">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white"><strong>Crear Nueva Nota</strong></h3>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="notaForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                  <label for="nombre">Nombre de la Nota</label>
+                  <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Ingrese el nombre de la nota">
+                </div>
+                <div class="form-group">
+                  <label for="idEstudiante">Estudiante</label>
+                  <select class="form-control" id="idEstudiante" formControlName="idEstudiante">
+                    <option value="">Seleccione un estudiante</option>
+                    <option *ngFor="let estudiante of estudiantes" [value]="estudiante.id">
+                      {{ estudiante.nombre }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="idProfesor">Profesor</label>
+                  <select class="form-control" id="idProfesor" formControlName="idProfesor">
+                    <option value="">Seleccione un profesor</option>
+                    <option *ngFor="let profesor of profesores" [value]="profesor.id">
+                      {{ profesor.nombre }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="valor">Valor de la Nota</label>
+                  <input type="number" class="form-control" id="valor" formControlName="valor" min="0" max="5" step="0.1" placeholder="Ingrese el valor de la nota">
+                </div>
+                <button type="submit" class="btn btn-primary mt-3" [disabled]="notaForm.invalid">Agregar Nota</button>
+                <button style="margin-left: 3px;" type="button" class="btn btn-secondary mt-3" routerLink="/lista-notas">Volver</button>
+              </form>
+
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+

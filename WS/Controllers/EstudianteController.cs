@@ -28,6 +28,23 @@ namespace WS.Controllers
             return Ok(estudiantes);
         }
 
+
+        [HttpGet("ObtenerPorId/{id}")]
+        public async Task<ActionResult<Estudiante>> ObtenerPorId(int id)
+        {
+            var result = await _estudianteBL.ObtenerPorId(id);
+            if (!string.IsNullOrEmpty(_estudianteBL.msjError))
+            {
+                return BadRequest(_estudianteBL.msjError);
+            }
+            if (result == null)
+            {
+                return NotFound("Estudiante no encontrado");
+            }
+            return Ok(result);
+        }
+
+
         [HttpPost]
         public async Task<ActionResult<bool>> Post([FromBody] Estudiante estudiante)
         {

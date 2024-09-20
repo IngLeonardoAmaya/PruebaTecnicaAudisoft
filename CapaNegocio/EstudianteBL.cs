@@ -41,6 +41,38 @@ namespace CapaNegocio
             return lista;
         }
 
+
+        public async Task<Estudiante> ObtenerPorId(int id)
+        {
+            msjError = "";
+            try
+            {
+                DataTable dt = await _estudianteDAL.ObtenerPorId(id);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    // Asumimos que la primera fila contiene los datos del estudiante
+                    DataRow row = dt.Rows[0];
+                    return new Estudiante
+                    {
+                        Id = Convert.ToInt32(row["Id"]),
+                        Nombre = Convert.ToString(row["Nombre"])
+                        // Agrega aquí otras propiedades según la estructura de tu tabla
+                    };
+                }
+                else
+                {
+                    msjError = "No se encontró el estudiante";
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                msjError = $"Error al obtener el estudiante: {ex.Message}";
+                return null;
+            }
+        }
+
+
         public async Task<bool> Insertar(Estudiante estudiante)
         {
             try
