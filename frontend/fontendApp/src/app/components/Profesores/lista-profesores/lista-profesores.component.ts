@@ -52,7 +52,7 @@ export class ListaProfesoresComponent {
             this.cargarProfesores();
           },
           error: (error) => {
-            Swal.fire('Error', 'No se pudo eliminar el profesor', 'error');
+            Swal.fire('Error', 'No se pudo eliminar el profesor, por que debe tener notas asociadas', 'error');
           }
         });
       }

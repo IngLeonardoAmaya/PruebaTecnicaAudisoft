@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -97,10 +98,40 @@ namespace CapaDatos
                 if (ds == null || ds.Tables.Count == 0)
                     throw new Exception("Error al ejecutar eliminar profesor");
                 dtDatos = ds.Tables[0];
+
+                // Verificar si la operación fue exitosa
+                if (dtDatos.Rows.Count > 0 && dtDatos.Columns.Contains("Respuesta"))
+                {
+                    string respuesta = dtDatos.Rows[0]["Respuesta"].ToString();
+                    if (respuesta != "OK")
+                    {
+                        throw new Exception(respuesta);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Respuesta inesperada del procedimiento almacenado");
+                }
+            }
+            catch (SqlException ex) when (ex.Number == 547) // 547 es el código de error para violación de restricción de clave foránea
+            {
+                msjError = "No se puede eliminar el profesor porque tiene notas asociadas";
+                throw new Exception(msjError);
             }
             catch (Exception ex)
             {
-                msjError = ex.Message;
+                // Capturar cualquier excepción y establecer el mensaje de error
+                if (ex.Message.Contains("REFERENCE constraint"))
+                {
+                    msjError = "No se puede eliminar el profesor porque tiene notas asociadas";
+                }
+                else
+                {
+                    msjError = "Error al eliminar el profesor: " + ex.Message;
+                }
+
+                // Lanzar una nueva excepción con el mensaje de error
+                throw new Exception(msjError);
             }
             return dtDatos;
         }

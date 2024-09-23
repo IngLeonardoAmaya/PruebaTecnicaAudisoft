@@ -57,9 +57,7 @@ namespace CapaNegocio
                         Id = Convert.ToInt32(row["Id"]),
                         Nombre = Convert.ToString(row["Nombre"]),
                         IdProfesor = Convert.ToInt32(row["IdProfesor"]),
-                        NombreProfesor = Convert.ToString(row["NombreProfesor"]),
                         IdEstudiante = Convert.ToInt32(row["IdEstudiante"]),
-                        NombreEstudiante = Convert.ToString(row["NombreEstudiante"]),
                         Valor = Convert.ToDecimal(row["Valor"])
                     };
                 }

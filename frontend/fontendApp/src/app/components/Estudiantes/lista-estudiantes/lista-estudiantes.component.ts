@@ -62,7 +62,7 @@ export class ListaEstudiantesComponent
           error: (error) => {
             Swal.fire(
               'Error!',
-              'No se pudo eliminar el estudiante.',
+              'No se pudo eliminar el estudiante, debe tener asociadas unas notas',
               'error'
             );
           }

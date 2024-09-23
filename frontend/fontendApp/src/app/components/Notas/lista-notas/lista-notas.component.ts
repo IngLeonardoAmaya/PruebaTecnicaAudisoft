@@ -30,7 +30,7 @@ export class ListaNotasComponent {
   }
 
   editarNota(id: number): void {
-    this.router.navigate(['/editar-nota', id]);
+    this.router.navigate(['/editar-notas', id]);
   }
 
   eliminarNota(id: number): void {
